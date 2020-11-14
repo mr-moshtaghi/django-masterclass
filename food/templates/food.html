@@ -9,9 +9,10 @@
     {% for item in item_list %}
         <ul>
             <li>
-                 <a href="{% url 'detail' item.id %}"><h2>{{item.id}}--{{item.item_name}}</h2></a>
-                    <!-- href="{% url 'detail' item.id %}" =====> href="food/{{item.id}}"  -->
-                    <!-- detail in {% url 'detail' item.id %} =====> path("<int:item_id>/" , views.detail , name="detail") name in path -->
+                 <a href="{% url 'food:detail' item.id %}"><h2>{{item.id}}--{{item.item_name}}</h2></a>
+                    <!-- href="{% url 'food:detail' item.id %}" =====> href="food/{{item.id}}"  -->
+                    <!-- detail in {% url 'food:detail' item.id %} =====> path("<int:item_id>/" , views.detail , name="detail") name in path -->
+                    <!-- food in {% url 'food:detail' item.id %} =====> app_name = 'food in urls.py-->
             </li>
         </ul>
     {% endfor %}
