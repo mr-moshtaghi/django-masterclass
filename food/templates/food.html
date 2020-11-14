@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>this is just template</h1>
+    {% for item in item_list %}
+        <ul>
+            <li>
+                <a href="/food/{{item.id}}/"><h2>{{item.id}}--{{item.item_name}}</h2></a>
+            </li>
+        </ul>
+    {% endfor %}
 </body>
 </html>
