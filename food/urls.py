@@ -11,5 +11,7 @@ urlpatterns = [
     # add item
     path('add/', views.create_item, name='create_item'),
     # eddit item
-    
+    path('update/<int:item_id>/', views.update_item, name="update_item"),
+    # delet iem 
+    path('delet/<int:item_id>/', views.delet_item, name="delet_item")
 ]
