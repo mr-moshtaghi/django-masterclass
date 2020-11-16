@@ -9,7 +9,7 @@ def index (request):
     context = {
         'item_list' : item_list,
     }
-    return render(request , "food.html" , context)
+    return render(request , "index.html" , context)
 
 
     # example of HttpResponse
