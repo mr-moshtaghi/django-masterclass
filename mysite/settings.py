@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # install app 
     'food',
+    'users',
 ]
 
 MIDDLEWARE = [
