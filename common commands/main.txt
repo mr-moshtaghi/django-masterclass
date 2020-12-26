@@ -1,0 +1,119 @@
+python --version   or    python -V     :    ورژن پایتونی که استفاده میکنید را نمایش میدهد 
+
+virtualenv  "name"     :      ساخت یک محیط مجازی برای پایتون (اگر به جای نام از . استفاده شود پوشه ی جدیدی ساخته نمیشود و در همین پوشه ای که هستید محیط مجازی ساخته میشود) در ویندوز
+
+python -m venv "name"             :              ساخت یک محیط مجازی در لینوکس
+
+Scripts\activate       :        فعال سازی محیط مجازی در ویندوز
+
+source bin/activate         :           فعال سازی محیط مجازی در لینوکس
+
+pip freeze    or   pip list      :        پکیج هایی که نصب شده است (هر محیط جدا) نمایش میدهد 
+
+pip freeze > requirements.txt       :     فایلی ساخته میشود و نام و ورژن پکیج ها در آن ذخیره میشود 
+
+pip install -r requirements.txt       :       پکیج های که در فایل مورد نظر وجود دارد نصب میکند (دقیقا با همان ورژنی که در فایل وجود دارد) 
+
+django-admin startproject 'name1' 'name2'      :       پروژه ی جدیدی ساخته میشود که نام پروژه برابر "نام1" و مسیر اصلی پروژه برابر "نام2" میباشد (اگر میخواهید پوشه ی جدیدی ساخته نشود به جای نام2 از . استفاده کنید)
+
+python manage.py runserver 8009      :      در پوشه ای که فایل منیج وجود دارد این دستور وارد شود روی پورت 8009 پروژه اجرا میشود (شماره ی پورت را میتوان عوض کرد)
+
+python manage.py startapp 'name'        :         اپی با اسمه مورد نظر ساخته میشود   
+
+Name.objects.all()       :        از کلاس مورد نظر تمامی شی هایی که در دیتابیس ذخیره شده است را بر میگرداند 
+
+a = Name.(.....) a.save()      or      Name.objects.create(.....)        :         یک شی از کلاسه مورد نظر در دیتابیس ذخیره میکند
+
+quit()    or    exit()         :      با این دو دستور میتوان از شله پایتون خارج شد
+
+برای اضافه کردن سریع کد های اولیه اچ تی ام ال کافیست بعد از نوشتن ! دکمه اینتر را بزنیم (in vscode)
+
+
+
+href="{% url 'food:detail' item.id %}" =====> href="food/{{item.id}}"  
+detail in {% url 'food:detail' item.id %} =====> path("<int:item_id>/" , views.detail , name="detail") name in path 
+food in {% url 'food:detail' item.id %} =====> app_name = 'food in urls.py
+آدرس دهی در تمپلیت های جنگو
+
+
+
+STATIC_URL = '/static/'      :     این قسمت در فایل تنظیمات نشان میدهد فایل های استاتیک در کجا ذخیره میشود 
+
+{% load static %}       :      برای استفاده از تگ استاتیک برای آدرس دهی فایل های استاتیک لازم است در اول فایل اچ تی ام ال این دستور وارد شود
+
+href="{% static 'style.css' %}" in <link rel="stylesheet" href="{% static 'style.css' %}">     :     در جمگو برای آدرس دهی فایل های استاتیک از این شیوه استفاده میشود
+
+{% extends base.html %}    :    این دستور کد به این معنا است که فایله اچ تی ام الی که این دستور در ایتدایش قرار دارد از فایل بیس ارث بری میکند 
+
+
+
+class ItemForm(forms.ModelForm):
+    class Meta:
+        model = Name --->کلاسی در مدل که میخواهیم بر اساس آن فرم بسازیم
+        fields = ['name1' , 'name2'] ---> فیلدهایی از کلاس مدل خط بالا که میخواهیم در فرممان وجود داشته باشد
+برای ساخت یک فرم از این شیوه استفاده میشود 
+
+
+
+form = ItemForm(request.POST or None)       :      ساخت یک شی از کلاسه مربوطه ی فایل فرم
+
+if form.is_valid():          :         اعتبارسنجی یک فرم
+
+return redirect("food:index")      :          بعد از ذخیره کردن فرم میتوان با استفاده از این دستور به صفحه مورد نظر برویم
+
+from django.contrib.auth.forms import UserCreationForm       :      استفاده از فرم جنگو برای ثبت نام
+
+username = form.cleaned_data.get('username')       :       با استفاده از این دستور میتوان اطلاعات به هر بخشی که در فرم ثبت نام وارد شده است دسترسی داشت (در اینجا یوزرنیم)
+
+from django.contrib import messages        :        برای استفاده از کتابخانه پیغام ها
+
+messages.success(request ,f'Welcome {username}, user accaunt created')         :        نمونه از نمایش پیغام ها در جنگو
+
+
+
+{% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}">{{message}}</div>           :          در صفحه ای که قرار است پیغام نمایش داده شود باید همچین کدهایی اضافه کرد
+        {% endfor %}      
+{% endif %}
+
+
+from django.contrib.auth import views          :      با این ایمپورت میتوان از توابع و کلاس های آماده مدیریت کاربران جنگو استفاده کرد
+
+LoginView.as_view(template_name='login.html')         :          LoginView is a classbase --> as_view() 
+
+LOGIN_REDIRECT_URL ='...'         :          این دستور در فایل تنظیمات پروژه قرار میگیرد . هنگامیکه لاگین کاربر با موفقیت انجام شد به صفحه مورد نظر هدایت میشود
+
+
+
+{% if user.is_authenticated %}
+         <a href="{% url 'logout' %}">Logout</a>
+{% else %}                                             ========>      با استفاده از این دستورات میتوان متوجه شد کاربر به سایت لاگین کرده یا نه و لینک های  مربوطه را به هرکدام از حالت هارا نمایش داد
+         <a href="{% url 'login' %}">Login</a>
+{% endif %}
+
+
+
+{% if user.is_authenticated %} or {% if user.username %} or... {% if user.... %}        :       به این دستورات در تمام صفحات تمپلیت ها دسترسی داریم 
+
+from django.contrib.auth.decorators import login_required          :       با وارد کردن این دکوریتور به پروژه میتوانیم برای توابعی که لازم است کاربر به سایت لاگین کند استفاده کنیم
+
+@login_required     :   ای دکوریتور قبل از هر تابع یا کلاسی داخل فایل های ویوز که لازم است برای استفاده از این توابع و کلاس ها حتما کاربر به سایت لاگین کند استفاده میشود
+
+LOGIN_URL = 'login'         :          هدایت کردن کاربر به صفحه لاگین هنگامیکه میخواهد به صفحه ای که اجازه ی دسترسی به آن را ندارد(هنوز لاگین نکرده است) وارد شود
+
+MEDIA_ROOT = os.path.join(BASE_DIR , 'media')            :                 این خط کد محل ذخیره شدن فایل های مدیا را نشان میدهد که هم سطح فایل منیج قرار دارد 
+
+MEDIA_URL = '/media/'                :              جنگو با استفاده از این مسیر در تمپلیت ها میتواند فایل های مورد نیاز خودش را بخواند
+
+
+
+from django.conf import settings
+from django.conf.urls.static import static
+                                                            ========>     سرویس دادن به پرونده های بارگذاری شده توسط کاربر در حین توسعه
+urlpatterns = [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
